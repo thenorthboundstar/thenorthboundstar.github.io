@@ -1,0 +1,133 @@
+/* ===============================
+   SCREEN FADE
+================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===============================
+   FLOATING EMOJIS
+   - Random directions
+   - No overlap (spacing via JS)
+================================ */
+.floating-emoji {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.7;
+    animation: emojiFloat linear infinite;
+}
+
+@keyframes emojiFloat {
+    0% {
+        transform: translate(0, 100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--x), -120vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===============================
+   MUSIC CARD FLOAT
+================================ */
+.music-card {
+    animation: gentleFloat 6s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+/* ===============================
+   FLIP CARD FLOAT
+================================ */
+.flip-card {
+    animation: cardHover 5s ease-in-out infinite;
+}
+
+@keyframes cardHover {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* ===============================
+   DOG POP IN
+================================ */
+#dog-reveal img {
+    animation: popIn 0.6s ease forwards;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ===============================
+   CAKE CUT SHAKE
+================================ */
+#cake.cut {
+    animation: cakeCut 0.6s ease;
+}
+
+@keyframes cakeCut {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* ===============================
+   ENVELOPE OPEN
+================================ */
+#envelope img {
+    transition: transform 0.4s ease;
+}
+
+#envelope.open img {
+    transform: scale(1.05) rotate(-2deg);
+}
+
+/* ===============================
+   LETTER SLIDE
+================================ */
+#letter {
+    animation: letterSlide 0.6s ease forwards;
+}
+
+@keyframes letterSlide {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

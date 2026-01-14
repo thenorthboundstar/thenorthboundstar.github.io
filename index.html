@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>For You ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Cute Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+<!-- Floating Hearts Background -->
+<div id="hearts-overlay">
+    <img src="assets/gifs/hearts.gif" alt="hearts">
+</div>
+
+<!-- Floating Emojis -->
+<div id="emoji-layer"></div>
+
+<!-- MAIN CONTAINER -->
+<div id="app">
+
+    <!-- OPENING SCREEN -->
+    <section class="screen active" id="screen-intro">
+        <h1>Hey you 💖</h1>
+        <p>
+            I wanted to do a tiny something this Christmas,<br>
+            because you mean a lot to me...
+        </p>
+        <p>
+            Today is all about celebrating<br>
+            the most amazing person in my world ✨
+        </p>
+        <button class="primary-btn" onclick="nextScreen()">Let’s begin 🎁</button>
+    </section>
+
+    <!-- MUSIC SELECTION -->
+    <section class="screen" id="screen-music">
+        <h2>Choose our vibe 🎶</h2>
+
+        <div class="music-grid">
+            <div class="music-card" style="background-image:url('assets/herpics/her1.jpg')" onclick="playSong('attention.mp3', this)">
+                <span class="song-name">Attention</span>
+                <span class="timer">0:00</span>
+            </div>
+            <div class="music-card" style="background-image:url('assets/herpics/her2.jpeg')" onclick="playSong('goldenhour.mp3', this)">
+                <span class="song-name">Golden Hour</span>
+                <span class="timer">0:00</span>
+            </div>
+            <div class="music-card" style="background-image:url('assets/herpics/her3.jpeg')" onclick="playSong('dandelions.mp3', this)">
+                <span class="song-name">Dandelions</span>
+                <span class="timer">0:00</span>
+            </div>
+            <div class="music-card" style="background-image:url('assets/herpics/her4.jpeg')" onclick="playSong('blue.mp3', this)">
+                <span class="song-name">Blue</span>
+                <span class="timer">0:00</span>
+            </div>
+            <div class="music-card" style="background-image:url('assets/herpics/her5.jpeg')" onclick="playSong('memories.mp3', this)">
+                <span class="song-name">Memories</span>
+                <span class="timer">0:00</span>
+            </div>
+            <div class="music-card" style="background-image:url('assets/herpics/her6.jpeg')" onclick="playSong('sweetbutpsycho.mp3', this)">
+                <span class="song-name">Sweet but Psycho</span>
+                <span class="timer">0:00</span>
+            </div>
+        </div>
+
+        <button class="primary-btn" onclick="nextScreen()">Next 💫</button>
+    </section>
+
+    <!-- GAMES -->
+    <section class="screen" id="screen-games">
+        <h2>Wanna play something childish? 🎮</h2>
+
+        <div id="tic-tac-toe">
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        </div>
+
+        <div id="dog-reveal"></div>
+
+        <button class="primary-btn" onclick="nextScreen()">Next 🐶</button>
+    </section>
+
+    <!-- CAKE -->
+    <section class="screen" id="screen-cake">
+        <h2>Cut the cake 🎂</h2>
+        <img id="cake" src="assets/gifs/cake.gif" alt="cake">
+        <p>Drag across the cake to cut it 💕</p>
+        <button class="primary-btn" onclick="nextScreen()">Next 🍰</button>
+    </section>
+
+    <!-- LITTLE THINGS -->
+    <section class="screen" id="screen-cards">
+        <h2>Little things I want you to know 💌</h2>
+
+        <div class="card-grid">
+            <div class="flip-card">
+                <div class="card-inner">
+                    <div class="card-front">Tap me 💖</div>
+                    <div class="card-back">
+                        <img src="assets/herpics/her7.jpeg">
+                        <p>Your presence make everything brighter ✨</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="card-inner">
+                    <div class="card-front">Tap me 🌸</div>
+                    <div class="card-back">
+                        <img src="assets/herpics/her8.jpeg">
+                        <p>Your smile is my favorite thing!!!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="card-inner">
+                    <div class="card-front">Tap me 💫</div>
+                    <div class="card-back">
+                        <img src="assets/herpics/her9.jpeg">
+                        <p>You are magic, always</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="card-inner">
+                    <div class="card-front">Tap me ❤️</div>
+                    <div class="card-back">
+                        <img src="assets/herpics/her10.jpeg">
+                        <p>I’m grateful for you every day</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="primary-btn" onclick="nextScreen()">Next 📸</button>
+    </section>
+
+    <!-- GALLERY PUZZLE -->
+    <section class="screen" id="screen-gallery">
+        <h2>Some moments I adore 🧩</h2>
+        <div id="gallery-board"></div>
+        <button class="primary-btn" onclick="nextScreen()">Final 💌</button>
+    </section>
+
+    <!-- LETTER -->
+    <section class="screen" id="screen-letter">
+        <h2>For you, always 💖</h2>
+
+        <div id="envelope" onclick="toggleLetter()">
+            <img src="assets/gifs/envelope.gif">
+        </div>
+
+        <div id="letter">
+            <p>
+                (Happy Birthday, Sanjana! Hope you’re having a great day and staying in good health. I’d wish you luck for the year ahead, but you already go above and beyond for your goals. Life isn’t easy, and can sometimes be a bitch. yet I see you AMAZINGLY stay strong through it all despite what others think! Keep at it, and as always, I’m cheering you on…)
+            </p>
+        </div>
+
+        <h3 class="date">16 January 2026 🎄</h3>
+    </section>
+
+</div>
+
+<!-- JS -->
+<script src="js/app.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/games.js"></script>
+<script src="js/gallery.js"></script>
+<script src="js/letter.js"></script>
+
+</body>
+</html>
