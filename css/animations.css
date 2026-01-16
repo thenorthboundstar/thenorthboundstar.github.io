@@ -1,211 +1,133 @@
-/* =====================================
-   SECTION TRANSITIONS
-====================================== */
-.section {
-  animation: fadeIn 0.8s ease forwards;
-}
-
+/* ===============================
+   SCREEN FADE
+================================ */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* =====================================
+/* ===============================
    FLOATING EMOJIS
-====================================== */
-.emoji {
-  position: fixed;
-  font-size: 1.5rem;
-  opacity: 0.8;
-  animation: floatEmoji linear infinite;
-  pointer-events: none;
+   - Random directions
+   - No overlap (spacing via JS)
+================================ */
+.floating-emoji {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.7;
+    animation: emojiFloat linear infinite;
 }
 
-@keyframes floatEmoji {
-  0% {
-    transform: translateY(110vh) translateX(0) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-120vh) translateX(var(--drift)) rotate(360deg);
-    opacity: 0;
-  }
+@keyframes emojiFloat {
+    0% {
+        transform: translate(0, 100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--x), -120vh) rotate(360deg);
+        opacity: 0;
+    }
 }
 
-/* =====================================
-   HEART BACKGROUND
-====================================== */
-#hearts-bg {
-  position: fixed;
-  inset: 0;
-  background: url('../assets/gifs/hearts.gif');
-  opacity: 0.15;
-  z-index: -1;
-  pointer-events: none;
+/* ===============================
+   MUSIC CARD FLOAT
+================================ */
+.music-card {
+    animation: gentleFloat 6s ease-in-out infinite;
 }
 
-/* =====================================
-   HEART EXPLOSION (LETTER OPEN)
-====================================== */
-.heart {
-  position: fixed;
-  font-size: 1.8rem;
-  animation: heartBurst 1.8s ease-out forwards;
-  pointer-events: none;
-  filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.7));
+@keyframes gentleFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
 }
 
-@keyframes heartBurst {
-  0% {
-    transform: scale(0.3) translate(0, 0);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1.4) translate(var(--x), var(--y));
-    opacity: 0;
-  }
+/* ===============================
+   FLIP CARD FLOAT
+================================ */
+.flip-card {
+    animation: cardHover 5s ease-in-out infinite;
 }
 
-/* =====================================
-   PETAL SHOWER (LETTER SEAL)
-====================================== */
-.petal {
-  position: fixed;
-  top: -10%;
-  font-size: 1.6rem;
-  animation: fallPetal linear forwards;
-  pointer-events: none;
+@keyframes cardHover {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
 }
 
-@keyframes fallPetal {
-  from {
-    transform: translateX(0) rotate(0deg);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(var(--drift)) translateY(120vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* =====================================
-   DOG POP-IN
-====================================== */
-#dog-reveal {
-  animation: popIn 0.8s ease forwards;
+/* ===============================
+   DOG POP IN
+================================ */
+#dog-reveal img {
+    animation: popIn 0.6s ease forwards;
 }
 
 @keyframes popIn {
-  from {
-    transform: scale(0.6);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
-/* =====================================
-   CAKE CUT TRANSITION
-====================================== */
-.cake-cut {
-  animation: slice 0.6s ease forwards;
+/* ===============================
+   CAKE CUT SHAKE
+================================ */
+#cake.cut {
+    animation: cakeCut 0.6s ease;
 }
 
-@keyframes slice {
-  0% {
-    transform: scale(1);
-  }
-  50% {
+@keyframes cakeCut {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+    75% { transform: rotate(-3deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* ===============================
+   ENVELOPE OPEN
+================================ */
+#envelope img {
+    transition: transform 0.4s ease;
+}
+
+#envelope.open img {
     transform: scale(1.05) rotate(-2deg);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
 
-/* =====================================
-   FLIP CARD FLOATING MOTION
-====================================== */
-.flip-card {
-  animation: floatCard 6s ease-in-out infinite;
-}
-
-@keyframes floatCard {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-/* =====================================
-   ENVELOPE OPEN / CLOSE
-====================================== */
-#envelope.open {
-  animation: envelopeOpen 0.6s ease forwards;
-}
-
-@keyframes envelopeOpen {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0.95) rotateX(15deg);
-  }
-}
-
-/* =====================================
+/* ===============================
    LETTER SLIDE
-====================================== */
-#letter.show {
-  animation: slideLetter 0.6s ease forwards;
+================================ */
+#letter {
+    animation: letterSlide 0.6s ease forwards;
 }
 
-@keyframes slideLetter {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =====================================
-   FINAL MESSAGE FADE
-====================================== */
-#finalMessage {
-  animation: fadeInSlow 2s ease forwards;
-}
-
-@keyframes fadeInSlow {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* =====================================
-   BUTTON PRESS FEEDBACK
-====================================== */
-button:active {
-  transform: scale(0.96);
+@keyframes letterSlide {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

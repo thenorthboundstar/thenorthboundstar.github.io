@@ -1,275 +1,345 @@
-/* =====================================
-   GLOBAL RESET & VARIABLES
-====================================== */
-:root {
-  --pink: #ff9ad5;
-  --hot-pink: #ff5fa2;
-  --lavender: #cdb4ff;
-  --peach: #ffd6a5;
-  --cream: #fff6e5;
-  --sky: #bde0fe;
-  --shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-  --soft-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
+/* ===============================
+   GLOBAL RESET
+================================ */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* =====================================
-   BODY
-====================================== */
 body {
-  font-family: 'Baloo 2', cursive;
-  background: linear-gradient(135deg, #ffe4f2, #e7d9ff);
-  color: #333;
-  overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffdee9, #b5fffc);
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #333;
 }
 
-/* =====================================
-   SECTION SYSTEM
-====================================== */
-.section {
-  min-height: 100vh;
-  padding: 60px 20px;
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+/* ===============================
+   HEARTS BACKGROUND
+================================ */
+#hearts-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.35;
+    pointer-events: none;
 }
 
-.section.active {
-  display: flex;
+#hearts-overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* =====================================
-   TITLES & TEXT
-====================================== */
-.title {
-  font-family: 'Pacifico', cursive;
-  font-size: 3rem;
-  color: var(--hot-pink);
-  text-shadow: 2px 2px 10px rgba(255, 95, 162, 0.4);
-  margin-bottom: 20px;
+/* ===============================
+   EMOJI FLOAT LAYER
+================================ */
+#emoji-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
 }
 
-.section-title {
-  font-family: 'Pacifico', cursive;
-  font-size: 2.5rem;
-  color: var(--hot-pink);
-  margin-bottom: 15px;
+/* ===============================
+   APP CONTAINER
+================================ */
+#app {
+    position: relative;
+    z-index: 2;
 }
 
-.subtitle,
-.hint {
-  font-size: 1.2rem;
-  max-width: 700px;
-  margin-bottom: 20px;
-  color: #555;
+/* ===============================
+   SCREEN SECTIONS
+================================ */
+.screen {
+    min-height: 100vh;
+    padding: 40px 24px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    animation: fadeIn 0.8s ease forwards;
 }
 
-/* =====================================
+.screen.active {
+    display: flex;
+}
+
+/* ===============================
+   TYPOGRAPHY
+================================ */
+h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #ff4f9a;
+    margin-bottom: 16px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #ff4f9a;
+}
+
+h3 {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+p {
+    font-size: 1.15rem;
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+/* ===============================
    BUTTONS
-====================================== */
-.next-btn,
-.action-btn,
-.seal-btn,
-.restart-btn {
-  margin-top: 25px;
-  padding: 14px 30px;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  background: linear-gradient(135deg, var(--hot-pink), var(--pink));
-  color: white;
-  box-shadow: var(--shadow);
-  transition: transform 0.3s, box-shadow 0.3s;
+================================ */
+.primary-btn {
+    margin-top: 20px;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(135deg, #ff4f9a, #ff85c2);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(255,79,154,0.4);
+    transition: all 0.3s ease;
 }
 
-.next-btn:hover,
-.action-btn:hover,
-.seal-btn:hover,
-.restart-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(255,79,154,0.55);
 }
 
-/* =====================================
-   MUSIC SELECTION
-====================================== */
+/* ===============================
+   MUSIC SECTION
+================================ */
 .music-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 20px;
-  width: 100%;
-  max-width: 900px;
-  margin-top: 30px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
 }
 
 .music-card {
-  background: white;
-  border-radius: 20px;
-  padding: 15px;
-  box-shadow: var(--soft-shadow);
-  cursor: pointer;
-  transition: transform 0.3s;
+    height: 180px;
+    border-radius: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-color: #111;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    overflow: hidden;
+    transition: transform 0.3s ease;
 }
 
 .music-card:hover {
-  transform: scale(1.05);
+    transform: translateY(-6px);
 }
 
-.music-card img {
-  width: 100%;
-  border-radius: 15px;
-  object-fit: cover;
+.song-name {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    font-size: 0.9rem;
+    color: white;
 }
 
-.music-card p {
-  margin-top: 10px;
-  font-size: 1rem;
+.timer {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 0.8rem;
+    color: white;
 }
 
-/* =====================================
+/* ===============================
    TIC TAC TOE
-====================================== */
-.tic-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 90px);
-  gap: 10px;
-  margin-top: 30px;
+================================ */
+#tic-tac-toe {
+    display: grid;
+    grid-template-columns: repeat(3, 90px);
+    gap: 10px;
+    margin-top: 20px;
 }
 
-.tic-cell {
-  width: 90px;
-  height: 90px;
-  background: white;
-  border-radius: 15px;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: var(--soft-shadow);
+.cell {
+    width: 90px;
+    height: 90px;
+    border-radius: 18px;
+    background: white;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
 }
 
-/* =====================================
-   DOG REVEAL
-====================================== */
-#dog-reveal {
-  margin-top: 30px;
-  text-align: center;
+.cell:hover {
+    transform: scale(1.05);
 }
 
-#dogImage {
-  width: 260px;
-  border-radius: 25px;
-  box-shadow: var(--shadow);
+/* ===============================
+   DOG SURPRISE
+================================ */
+#dog-reveal img {
+    margin-top: 30px;
+    width: 85%;
+    max-width: 320px;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
 }
 
-.popup-text {
-  margin-top: 15px;
-  font-size: 1.2rem;
-  color: var(--hot-pink);
-}
-
-/* =====================================
+/* ===============================
    CAKE
-====================================== */
-.cake-container {
-  margin-top: 30px;
+================================ */
+#cake {
+    width: 260px;
+    margin: 20px 0;
+    cursor: grab;
+    transition: transform 0.4s ease;
 }
 
-#cakeImage {
-  width: 260px;
-  border-radius: 25px;
-  box-shadow: var(--shadow);
+#cake:active {
+    transform: scale(0.95);
 }
 
-/* =====================================
+/* ===============================
    FLIP CARDS
-====================================== */
+================================ */
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 25px;
-  width: 100%;
-  max-width: 900px;
-  margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 18px;
+    margin-top: 20px;
 }
 
 .flip-card {
-  perspective: 1000px;
+    perspective: 1000px;
 }
 
-.flip-inner {
-  position: relative;
-  width: 100%;
-  height: 280px;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
+.card-inner {
+    width: 100%;
+    height: 240px;
+    border-radius: 20px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
 }
 
-.flip-card:hover .flip-inner {
-  transform: rotateY(180deg);
+.flip-card.active .card-inner {
+    transform: rotateY(180deg);
 }
 
-.flip-front,
-.flip-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  backface-visibility: hidden;
-  box-shadow: var(--shadow);
-  padding: 15px;
+.card-front,
+.card-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
 }
 
-.flip-front {
-  background: linear-gradient(135deg, var(--peach), var(--lavender));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
+/* Front */
+.card-front {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
-.flip-back {
-  background: linear-gradient(135deg, var(--pink), var(--sky));
-  transform: rotateY(180deg);
+/* Back */
+.card-back {
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    transform: rotateY(180deg);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.flip-back img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 15px;
+.card-back img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 14px;
+    background: white;
+    padding: 6px;
 }
 
-.flip-back p {
-  margin-top: 10px;
-  font-size: 1rem;
+.card-back p {
+    font-size: 0.9rem;
+    margin-top: 6px;
 }
 
-/* =====================================
-   GALLERY
-====================================== */
-#galleryBoard {
-  position: relative;
-  width: 100%;
-  max-width: 1000px;
-  height: 500px;
-  margin-top: 40px;
-  overflow: visible;
+/* ===============================
+   GALLERY PUZZLE
+================================ */
+#gallery-board {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    margin-top: 20px;
 }
 
-.gallery-item {
-  position: absolute;
-  width: 140px;
-  height: 180px;
-  border-radius: 15px;
-  cursor: grab;
-  box-shadow: var(--
+/* ===============================
+   LETTER
+================================ */
+#envelope img {
+    width: 220px;
+    cursor: pointer;
+}
+
+#letter {
+    margin-top: 20px;
+    max-width: 360px;
+    max-height: 50vh;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    overflow-y: auto;
+    display: none;
+}
+
+#letter.show {
+    display: block;
+}
+
+.date {
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+/* ===============================
+   PUZZLE PIECES
+================================ */
+.puzzle-piece {
+    position: absolute;
+    border-radius: 16px;
+    object-fit: cover;
+    cursor: grab;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+    transition: box-shadow 0.2s ease;
+}
+
+.puzzle-piece:active {
+    cursor: grabbing;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+}
