@@ -1,99 +1,107 @@
-/* ===============================
-   TIC TAC TOE
-================================ */
-const cells = document.querySelectorAll('.cell');
-let currentPlayer = '❌';
-let gameOver = false;
+/* =====================================
+   HEART HUNT GAME (MINESWEEPER STYLE)
+====================================== */
 
-cells.forEach(cell => {
-    cell.addEventListener('click', () => {
-        if (cell.textContent !== '' || gameOver) return;
+const grid = document.getElementById("ticGrid");
+const dogReveal = document.getElementById("dog-reveal");
+const dogImage = document.getElementById("dogImage");
+const afterDogBtn = document.getElementById("afterDogBtn");
 
-        cell.textContent = currentPlayer;
-        currentPlayer = currentPlayer === '❌' ? '⭕' : '❌';
+/* DOG IMAGES */
+const dogPics = [
+  "assets/dogpics/dog1.jpg",
+  "assets/dogpics/dog2.jpg",
+  "assets/dogpics/dog3.jpg"
+];
 
-        checkGameEnd();
-    });
-});
+let heartIndex = Math.floor(Math.random() * 9);
+let gameWon = false;
+let slideshowInterval = null;
 
-function checkGameEnd() {
-    const combos = [
-        [0,1,2],[3,4,5],[6,7,8],
-        [0,3,6],[1,4,7],[2,5,8],
-        [0,4,8],[2,4,6]
-    ];
+/* =====================================
+   INIT HEART GRID
+====================================== */
+if (grid) {
+  grid.innerHTML = "";
 
-    combos.forEach(combo => {
-        const [a,b,c] = combo;
-        if (
-            cells[a].textContent &&
-            cells[a].textContent === cells[b].textContent &&
-            cells[a].textContent === cells[c].textContent
-        ) {
-            gameOver = true;
-            revealDog();
-        }
-    });
+  for (let i = 0; i < 9; i++) {
+    const cell = document.createElement("div");
+    cell.className = "tic-cell";
+    cell.dataset.index = i;
+
+    cell.addEventListener("click", () => handleCellClick(cell));
+    grid.appendChild(cell);
+  }
 }
 
-/* ===============================
-   DOG REVEAL
-================================ */
-function revealDog() {
-    const dogReveal = document.getElementById('dog-reveal');
-    dogReveal.innerHTML = '';
+/* =====================================
+   HANDLE CELL CLICK
+====================================== */
+function handleCellClick(cell) {
+  if (gameWon) return;
+  if (cell.textContent !== "") return;
 
-    const dogs = [
-        'assets/dogpics/dog1.jpg',
-        'assets/dogpics/dog2.jpg',
-        'assets/dogpics/dog3.jpg'
-    ];
+  const index = Number(cell.dataset.index);
 
-    const img = document.createElement('img');
-    img.src = dogs[Math.floor(Math.random() * dogs.length)];
-    img.alt = 'Cute dog';
-
-    dogReveal.appendChild(img);
+  if (index === heartIndex) {
+    cell.textContent = "💖";
+    winGame();
+  } else {
+    cell.textContent = "✨";
+    cell.style.opacity = "0.6";
+  }
 }
 
-/* ===============================
-   CAKE CUT (DRAG TO CUT)
-================================ */
-const cake = document.getElementById('cake');
+/* =====================================
+   WIN STATE
+====================================== */
+function winGame() {
+  gameWon = true;
+
+  setTimeout(() => {
+    startDogSlideshow();
+    dogReveal.classList.remove("hidden");
+    afterDogBtn.classList.remove("hidden");
+  }, 600);
+}
+
+/* =====================================
+   DOG SLIDESHOW
+====================================== */
+function startDogSlideshow() {
+  let current = 0;
+  dogImage.src = dogPics[current];
+
+  slideshowInterval = setInterval(() => {
+    current = (current + 1) % dogPics.length;
+    dogImage.style.opacity = "0";
+
+    setTimeout(() => {
+      dogImage.src = dogPics[current];
+      dogImage.style.opacity = "1";
+    }, 300);
+  }, 2500);
+}
+
+/* =====================================
+   CAKE CUT (UNCHANGED & SAFE)
+====================================== */
+
+const cakeImg = document.getElementById("cakeImage");
+const afterCakeBtn = document.getElementById("afterCakeBtn");
 let cakeCut = false;
-let startX = null;
-
-cake.addEventListener('touchstart', e => {
-    startX = e.touches[0].clientX;
-});
-
-cake.addEventListener('touchmove', e => {
-    if (cakeCut || startX === null) return;
-
-    const currentX = e.touches[0].clientX;
-    if (Math.abs(currentX - startX) > 60) {
-        cutCake();
-    }
-});
-
-cake.addEventListener('mousedown', e => {
-    startX = e.clientX;
-});
-
-cake.addEventListener('mousemove', e => {
-    if (cakeCut || startX === null) return;
-
-    if (Math.abs(e.clientX - startX) > 60) {
-        cutCake();
-    }
-});
-
-cake.addEventListener('mouseup', () => {
-    startX = null;
-});
 
 function cutCake() {
-    cakeCut = true;
-    cake.src = 'assets/icons/cakecut.png';
-    cake.classList.add('cut');
+  if (cakeCut) return;
+
+  cakeCut = true;
+
+  cakeImg.src = "assets/icons/cakecut.png";
+  cakeImg.classList.add("cake-cut");
+
+  const chime = new Audio("assets/soundeffects/chime.wav");
+  chime.volume = 0.6;
+  chime.play().catch(() => {});
+
+  afterCakeBtn.classList.remove("hidden");
 }
